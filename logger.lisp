@@ -103,6 +103,16 @@
   (when *c-name*
     (cffi:foreign-string-free *c-name*)))
 
+(defun message* (facility priority text)
+  (cffi:with-foreign-string (ctext text)
+    (c-syslog (logior (get-priority priority)
+                      (if facility (get-facility facility) 0))
+              ctext))
+  text)
+
+(defun message (priority text)
+  (message* '() priority text))
+
 (defmacro format-message* (facility priority text &body body)
   "Format message to syslog."
   (let ((message (gensym)))
@@ -111,9 +121,10 @@
          (let ((,message (with-output-to-string (str)
                            (let ((*print-pretty* nil))
                              (format str ,text ,@body)))))
-           (c-syslog (logior prio
-                             (if ,facility (get-facility ,facility) 0))
-                     ,message)
+           (cffi:with-foreign-string (cmessage ,message)
+             (c-syslog (logior prio
+                               (if ,facility (get-facility ,facility) 0))
+                     cmessage))
            ,message)))))
 
 (defmacro format-message (priority text &body body)
