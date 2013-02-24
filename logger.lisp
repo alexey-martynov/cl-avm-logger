@@ -176,3 +176,5 @@
                              (cons (car item) (cdr result)))))
                +priorities+
                :initial-value '(nil . ()))))
+
+(pushnew :avm-logger *features*)
