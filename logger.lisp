@@ -178,3 +178,4 @@
                :initial-value '(nil . ()))))
 
 (pushnew :avm-logger *features*)
+(pushnew :syslog *features*)
