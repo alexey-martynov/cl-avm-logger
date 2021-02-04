@@ -14,5 +14,7 @@
           #:journal
 
           ;; Journald backend settings
-          #+linux
-          #:*properties))
+          ;; This symbols exported on source load
+          ;;#+linux
+          ;;#:*properties*
+          ))

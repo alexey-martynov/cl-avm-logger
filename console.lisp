@@ -15,3 +15,5 @@
 
 (push 'console *available-backends*)
 (setf *active-backends* '(console))
+
+(pushnew :cl-avm-logger-console *features*)

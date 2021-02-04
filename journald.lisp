@@ -47,3 +47,7 @@
 
 (push 'journald *available-backends*)
 (setf *active-backends* '(journald))
+
+(pushnew :cl-avm-logger-journald *features*)
+
+(export '*properties*)

@@ -8,6 +8,14 @@ The frontend API is platform independent and designed to look native
 in Common Lisp system. The backends use different platform dependent
 technologies to log data.
 
+After loading `*FEATURES*` will contain keyword `:CL-AVM-LOGGER`.
+
+The Linux distribution might not use systemd at all. This means that
+"libsystemd.so" is missing and `sd_journal_sendv()` missed too. To
+prevent possible failures in this case the ASDF systems split. The
+`CL-AVM-LOGGER` loads fail-safe backends (console and syslog on UNIX)
+and `CL-AVM-LOGGER+JOURNAL` loads all other backends and journal too.
+
 Client API
 ----------
 
@@ -58,6 +66,8 @@ log rotation is performed. And log data is not split between files.
 
 Message time stamp is omitted.
 
+This backend adds `CL-AVM-LOGGER-CONSOLE` keyword to `*FEATURES*`.
+
 The message priority is written in line prefix. There 3 styles
 supported and current style selected according to `*PRIORITY-STYLE*`
 variable:
@@ -90,7 +100,9 @@ Any additional property can be specified via association list
 `*PROPERTIES*` where the key is property name and value is property
 value. This value will be finally formatted via `~A` specifier.
 
-Internally this backend uses `sd_journal_sendv` to deliver data to
+This backend adds `CL-AVM-LOGGER-JOURNAL` keyword to `*FEATURES*`.
+
+Internally this backend uses `sd_journal_sendv()` to deliver data to
 journal.
 
 ### Syslog

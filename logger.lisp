@@ -37,3 +37,5 @@
 (defun priority-value (priority)
   (or (cadr (assoc priority +priorities+))
       (error (make-condition 'invalid-priority :priority priority))))
+
+(pushnew :cl-avm-logger *features*)
