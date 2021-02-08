@@ -1,20 +1,20 @@
 (defpackage :cl-avm-logger
   (:use :cl)
   (:export #:log-message
-          #:*available-backends*
-          #:*active-backends*
-          #:invalid-priority
-          #:*identifier*
+           #:identifier
+           #:*available-backends*
+           #:*active-backends*
+           #:invalid-priority
 
-          ;; Console backend settings
-          #:*priority-style*
-          #:*log-stream*
-          #:none
-          #:console
-          #:journal
+           ;; Console backend settings
+           #:*priority-style*
+           #:*log-stream*
+           #:none
+           #:console
+           #:journal
 
-          ;; Journald backend settings
-          ;; This symbols exported on source load
-          ;;#+linux
-          ;;#:*properties*
-          ))
+           ;; Journald backend settings
+           ;; This symbols exported on source load
+           ;;#+linux
+           ;;#:*properties*
+           ))

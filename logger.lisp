@@ -5,6 +5,15 @@
 
 (defparameter *identifier* nil "The program identifier to use in logs.")
 
+(declaim (ftype (function () (or null string)) identifier))
+(defun identifier ()
+  *identifier*)
+
+(declaim (ftype (function ((or null string)) (or null string)) (setf identifier)))
+(defun (setf identifier) (identifier)
+  (setf *identifier* identifier)
+  identifier)
+
 (defun log-message (priority message &rest args)
   (when *active-backends*
     (let ((message (apply #'format nil message args)))

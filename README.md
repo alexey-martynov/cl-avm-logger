@@ -34,9 +34,10 @@ The main API consists of:
 
   Raised when incorrect priority value specified.
 
-* variable `*IDENTIFIER*`
+* function `IDENTIFIER`
 
-  The program identifier which is used by backends to separate logs. 
+  The program identifier which is used by backends to separate
+  logs. Assignment to this place sets new identifier.
 
 * variable `*AVAILABLE-BACKENDS*`
 
@@ -93,8 +94,8 @@ variable:
 
 The journal backend uses journald to store messages. It allows to
 select identifier for program (`SYSLOG_IDENTIFIER` property) via
-variable `*IDENTIFIER*` (direct assignment of this variable is a
-temporary interface and will be removed soon).
+generalized variable `(IDENTIFIER)`. The form
+`(setf (identifier) "new-id")` return new identifier.
 
 Any additional property can be specified via association list
 `*PROPERTIES*` where the key is property name and value is property
