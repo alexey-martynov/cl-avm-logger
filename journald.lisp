@@ -1,8 +1,5 @@
 (in-package :cl-avm-logger)
 
-(defparameter *properties* nil "AList of additional properties to add to message. The key is string
- with name and value will be formatted via FORMAT. Standard parameters will be added automatically.")
-
 (cffi:define-foreign-library systemd-lib
   (:linux (:or "libsystemd.so.0" "libsystemd.so")))
 
@@ -49,5 +46,3 @@
 (setf *active-backends* '(journald))
 
 (pushnew :cl-avm-logger-journald *features*)
-
-(export '*properties*)

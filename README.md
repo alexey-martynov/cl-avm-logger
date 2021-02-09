@@ -39,6 +39,11 @@ The main API consists of:
   The program identifier which is used by backends to separate
   logs. Assignment to this place sets new identifier.
 
+* variable `*PROPERTIES*`
+
+  Association list with extra properties that might be added to log
+  entry. Currently used only by journald backend.
+
 * variable `*AVAILABLE-BACKENDS*`
 
   List of symbols of loaded backends.

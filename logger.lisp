@@ -5,6 +5,9 @@
 
 (defparameter *identifier* nil "The program identifier to use in logs.")
 
+(defparameter *properties* nil "AList of additional properties to add to message. The key is string
+ with name and value will be formatted via FORMAT. Standard parameters will be added automatically.")
+
 (declaim (ftype (function () (or null string)) identifier))
 (defun identifier ()
   *identifier*)

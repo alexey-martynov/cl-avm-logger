@@ -2,6 +2,7 @@
   (:use :cl)
   (:export #:log-message
            #:identifier
+           #:*properties*
            #:*available-backends*
            #:*active-backends*
            #:invalid-priority
@@ -12,9 +13,4 @@
            #:none
            #:console
            #:journal
-
-           ;; Journald backend settings
-           ;; This symbols exported on source load
-           ;;#+linux
-           ;;#:*properties*
            ))
