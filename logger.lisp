@@ -10,20 +10,44 @@
 
 (declaim (ftype (function () (or null string)) identifier))
 (defun identifier ()
+  "Obtain string which is currently used as identifier of program."
   *identifier*)
 
 (declaim (ftype (function ((or null string)) (or null string)) (setf identifier)))
 (defun (setf identifier) (identifier)
+  "Set new program identifier. Returns IDENTIFIER."
   (setf *identifier* identifier)
   identifier)
 
+(defmacro with-log-properties ((&rest args) &body body)
+  (let ((bindings (do* ((a args (cdr a)) (l nil))
+                       ((null a) (nreverse l))
+                    (when (oddp (length (car a)))
+                      (error "Odd number of property assignment to WITH-LOG-PROPERTIES : ~s." a))
+                    (push `(cons ,(caar a) ,(cadar a)) l))))
+    (if bindings
+        `(let ((*properties* (list ,@bindings)))
+           ,@body)
+        `(progn ,@body))))
+
+(defmacro with-additional-log-properties ((&rest args) &body body)
+  (let ((bindings (do* ((a args (cdr a)) (l '*properties*))
+                       ((null a) l)
+                    (when (oddp (length (car a)))
+                      (error "Odd number of property assignment to WITH-ADDITIONAL-LOG-PROPERTIES : ~s." a))
+                    (setf l `(cons (cons ,(caar a) ,(cadar a)) ,l)))))
+    (if bindings
+        `(let ((*properties* ,bindings))
+           ,@body)
+        `(progn ,@body))))
+
 (defun log-message (priority message &rest args)
+  "Create log entry with all *ACTIVE-BACKENDS*. MESSAGE will be formatted with ARGS according
+ to FORMAT rules."
   (when *active-backends*
     (let ((message (apply #'format nil message args)))
       (mapc (lambda (backend) (funcall backend priority message)) *active-backends*)))
   nil)
-
-;; TODO: Add function to set identifier to all backends
 
 (define-condition invalid-priority (error)
   ((priority

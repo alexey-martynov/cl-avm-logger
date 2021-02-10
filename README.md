@@ -44,6 +44,24 @@ The main API consists of:
   Association list with extra properties that might be added to log
   entry. Currently used only by journald backend.
 
+* macro `(WITH-LOG-PROPERTIES (PROPERTY-DEF*) FORMS)`
+
+  `PROPERTY-DEF = (PROPERTY VALUE)`
+  
+  Execute `FORMS` with `*PROPERTIES*` bound to a list of property
+  definitions. It is undefined which value will be logged in case when
+  a single property defined multiple times.
+
+* macro `(WITH-ADDITIONAL-LOG-PROPERTIES (PROPERTY-DEF*) FORMS)`
+
+  `PROPERTY-DEF = (PROPERTY VALUE)`
+
+  Execute `FORMS` with property definetions _added_ to
+  `*PROPERTIES*`. It is undefined which value will be logged in case
+  when a single property defined multiple times in the current
+  property definitions. But current property definitions override
+  definitions from previous `*PROPERTIES*` value.
+
 * variable `*AVAILABLE-BACKENDS*`
 
   List of symbols of loaded backends.

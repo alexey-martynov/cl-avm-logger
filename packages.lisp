@@ -3,6 +3,8 @@
   (:export #:log-message
            #:identifier
            #:*properties*
+           #:with-log-properties
+           #:with-additional-log-properties
            #:*available-backends*
            #:*active-backends*
            #:invalid-priority
