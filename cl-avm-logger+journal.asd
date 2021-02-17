@@ -7,6 +7,5 @@
                (:file "logger" :depends-on ("packages"))
                (:file "console" :depends-on ("logger"))
                ;; Temporary disabled due to insufficient testing
-               ;;#-win32
-               ;;(:file "syslog" :depends-on ("logger"))
+               ;;(:file "syslog" :depends-on ("logger") :if-feature (:not :win32))
                (:file "journald" :depends-on ("logger"))))
