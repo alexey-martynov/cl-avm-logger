@@ -1,6 +1,6 @@
 (defsystem cl-avm-logger
   :name "cl-avm-logger"
-  :description "Simple logging framework with console/file and journald support"
+  :description "Simple logging framework with console/file support"
   :author "Alexey Martynov"
   :license "MIT"
   :depends-on (#:cffi)
