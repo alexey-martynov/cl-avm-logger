@@ -88,11 +88,9 @@ to write log messages. This variable is initialized to
 `*ERROR-OUTPUT*` on start and can be changed to any other stream. No
 log rotation is performed. And log data is not split between files.
 
-Message time stamp is omitted.
-
 This backend adds `CL-AVM-LOGGER-CONSOLE` keyword to `*FEATURES*`.
 
-The message priority is written in line prefix. There 3 styles
+The message priority is written in line prefix. There 4 styles
 supported and current style selected according to `*PRIORITY-STYLE*`
 variable:
 
@@ -112,6 +110,22 @@ variable:
   and written in angle brackets at the beginning of the line. This
   allows simple output redirection in systemd units and/or by
   `systemd-cat` utility.
+
+* `JOURNAL-WITH-TIMESTAMP`
+
+  The priority will be converted to its numerical value (as in Syslog)
+  and written in angle brackets at the beginning of the line. This
+  allows simple output redirection in systemd units and/or by
+  `systemd-cat` utility. In addition the timestamp will be printed
+  between priority and message.
+
+Message timestamp is controlled by variables `*TIMESTAMP-FORMAT*` and
+`*TIMESTAMP-ZONE*`. The `*TIMESTAMP-FORMAT*` variable contains
+timestamp format specification as accepted by `local-time`
+library. The default value is timestamp like ISO8601 by symbol 'T'
+replaced by space to improve readability. If format is `NIL` no
+timestamp will be printed. `*TIMESTAMP-ZONE*` controls output
+timezone. By default it is UTC.
 
 ### Journal
 
