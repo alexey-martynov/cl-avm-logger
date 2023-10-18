@@ -3,7 +3,8 @@
   :description "Simple logging framework with console/file support"
   :author "Alexey Martynov"
   :license "MIT"
-  :depends-on (#:cffi #:local-time)
+  :depends-on (#:cffi
+               #:local-time)
   :if-feature (:not :cl-avm-logger)
   :components ((:file "packages")
                (:file "logger" :depends-on ("packages"))
